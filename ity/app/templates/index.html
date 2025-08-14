@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>ITY MVP - Haircut Finder</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+	<script src="https://unpkg.com/htmx.org@1.9.12"></script>
+</head>
+<body>
+	<main class="container">
+		<hgroup>
+			<h1>Find a haircut now</h1>
+			<p>Try queries like: "fade under $40 today" or "women's cut tomorrow with Alex"</p>
+		</hgroup>
+		<form method="get" action="/">
+			<input type="text" name="q" placeholder="e.g., men's cut under $35 today" />
+			<button type="submit">Search</button>
+		</form>
+		<hr />
+		<section>
+			<h3>API Demo</h3>
+			<form hx-get="/api/search/haircuts" hx-target="#results" hx-trigger="submit">
+				<input type="text" name="q" placeholder="conversational query" />
+				<button type="submit">Search via API</button>
+			</form>
+			<div id="results" class="grid"></div>
+		</section>
+	</main>
+</body>
+</html>
