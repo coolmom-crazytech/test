@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>ITY Results</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+</head>
+<body>
+	<main class="container">
+		<hgroup>
+			<h1>Results</h1>
+			<p>Query: {{ q }}</p>
+		</hgroup>
+		<a href="/">Back</a>
+		<div class="grid">
+			{% for r in results %}
+			<article>
+				<header>
+					<strong>{{ r.location_name }}</strong>
+					<small>{{ r.provider|capitalize }}</small>
+				</header>
+				<p>{{ r.service_name }}{% if r.stylist_name %} with {{ r.stylist_name }}{% endif %}</p>
+				<p>{{ format_price(r.price_cents) }} · {{ r.start_time.strftime('%a %b %d %I:%M %p') }} · score {{ '%.2f' % r.score }}</p>
+				<footer>
+					{% if r.book_url %}
+					<a target="_blank" href="{{ r.book_url }}">Book</a>
+					{% else %}
+					<span>Book via app</span>
+					{% endif %}
+				</footer>
+			</article>
+			{% endfor %}
+		</div>
+	</main>
+</body>
+</html>
