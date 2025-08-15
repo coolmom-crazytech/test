@@ -11,10 +11,12 @@ from fastapi.responses import HTMLResponse, ORJSONResponse
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, Field
 from rapidfuzz import fuzz
+from pathlib import Path
 
 app = FastAPI(title="ITY MVP", default_response_class=ORJSONResponse)
 
-templates = Jinja2Templates(directory="app/templates")
+TEMPLATE_DIR = str(Path(__file__).parent / "templates")
+templates = Jinja2Templates(directory=TEMPLATE_DIR)
 
 
 # ----------------------------
@@ -295,3 +297,8 @@ async def api_book(req: BookingRequest):
 @app.get("/healthz")
 async def healthz():
 	return {"ok": True, "time": datetime.utcnow().isoformat()}
+
+
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+	return HTMLResponse(content="", status_code=204)
